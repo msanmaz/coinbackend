@@ -1,4 +1,5 @@
 const express = require('express');
+const  cron  = require('node-cron');
 const fetch = require('node-fetch')
 const port = 3000;
 const app = express();
@@ -8,17 +9,22 @@ app.listen(port, () => {
 })
 
 
-
-recursive = 
-
-app.get('/', async (req, res) => {
-
-    const fetchApi = await fetch('https://api.coincap.io/v2/assets', {
-        'method': 'GET',
+values = [];
+cron.schedule("*/2 * * * * *", async function() {
+    const response = await fetch('https://api.coincap.io/v2/assets');
+    const body = await response.json();
+    body.data.map((item) => {
+        if(values.length >= 100){
+            values = [];
+        }
+        values.push(item)
     })
-    const cryptos = await fetchApi.json()
-    setInterval(cryptos,60000)
-    res.send(cryptos)
+    console.log('every 2sec')
+});
+
+
+app.get('/', async function(req,res) {
+    res.send(values)
 })
 
 
