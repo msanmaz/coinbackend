@@ -10,9 +10,13 @@
   "author": "Mert Osanmaz",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.18.0",
     "node-cron": "^3.0.0",
     "node-fetch": "^2.6.7",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "socket.io": "^4.5.0",
+    "socket.io-client": "^4.5.0",
+    "ws": "^8.6.0"
   }
 }
